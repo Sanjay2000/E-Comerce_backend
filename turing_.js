@@ -1,22 +1,22 @@
 const express = require("express");
 const mysql  = require("mysql");
 const body = require("body-parser");
+const dotenv=require('dotenv').config()
 const app = express();
 app.use(body.json())
 const port = 3000
 const jwt = require('jsonwebtoken');
 
 
-const knex = require("knex")({
-    client:"mysql",
-    connection:{
-        user: "root",
-        password:"sanjay",
-        host:"localhost",
-        database:"turingdb"
-    }
-
-})
+var knex = require('knex')({
+	client: 'mysql',
+	connection: {
+	  host : process.env.DB_HOST,
+	  user : process.env.DB_USER,
+	  password : process.env.DB_PASSWORD,
+	  database : process.env.DB_DATABASE
+	}
+  });
 
 
 knex.schema.createTable('saveForLater', function (table) {
